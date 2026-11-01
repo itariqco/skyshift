@@ -1,0 +1,239 @@
+<title>Skyshift Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spline+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    /* Light — a cool, pre-dawn sky */
+    --ground: #F6F7FB;
+    --surface: #FFFFFF;
+    --ink: #1B2138;
+    --ink-soft: #4A5170;
+    --ink-faint: #797F9A;
+    --line: #E3E6F0;
+    --accent: #4B5BA6;      /* twilight indigo */
+    --accent-warm: #DE9A48; /* horizon amber */
+    --accent-soft: #EEF0F9;
+    --shadow: 0 1px 2px rgba(27,33,56,.04), 0 8px 30px rgba(27,33,56,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D101E;
+      --surface: #141827;
+      --ink: #E6EAF6;
+      --ink-soft: #A9B0C9;
+      --ink-faint: #737B98;
+      --line: #242A3E;
+      --accent: #8B9AE6;
+      --accent-warm: #E8B268;
+      --accent-soft: #1B2135;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0D101E;
+    --surface: #141827;
+    --ink: #E6EAF6;
+    --ink-soft: #A9B0C9;
+    --ink-faint: #737B98;
+    --line: #242A3E;
+    --accent: #8B9AE6;
+    --accent-warm: #E8B268;
+    --accent-soft: #1B2135;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Spline Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* dawn → day → dusk → night, as a thin horizon band */
+  .horizon {
+    height: 5px;
+    background: linear-gradient(90deg, #E9A24C 0%, #EBD9A6 22%, #7FB6D6 46%, #4B5BA6 70%, #241C3C 100%);
+  }
+
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  header.masthead { padding: 4.5rem 0 2.5rem; }
+  .eyebrow {
+    font-size: .74rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 1rem;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500; font-size: clamp(2.4rem, 6vw, 3.4rem);
+    line-height: 1.05; letter-spacing: -.015em; text-wrap: balance;
+    margin: 0 0 1rem;
+  }
+  .lede { font-size: 1.18rem; color: var(--ink-soft); margin: 0; max-width: 36rem; }
+
+  nav.jump { display: flex; gap: .6rem; margin-top: 2rem; flex-wrap: wrap; }
+  nav.jump a {
+    font-size: .9rem; font-weight: 500; text-decoration: none;
+    color: var(--ink-soft); background: var(--surface);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: .4rem 1rem; transition: color .15s, border-color .15s;
+  }
+  nav.jump a:hover { color: var(--accent); border-color: var(--accent); }
+
+  main { padding-bottom: 5rem; }
+  section { scroll-margin-top: 2rem; padding-top: 3rem; }
+  section > h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500; font-size: 1.7rem; letter-spacing: -.01em;
+    margin: 0 0 .4rem; display: flex; align-items: baseline; gap: .7rem;
+  }
+  section > h2 .mark {
+    font-family: "Spline Sans", sans-serif; font-size: .7rem; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent-warm);
+  }
+  .rule { height: 1px; background: var(--line); border: 0; margin: 1.4rem 0 1.8rem; }
+
+  h3 { font-size: 1.02rem; font-weight: 600; margin: 2rem 0 .3rem; letter-spacing: -.005em; }
+  p { margin: .6rem 0; }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 1.6rem 1.7rem; box-shadow: var(--shadow);
+    margin-top: 1.6rem;
+  }
+  .contact-line { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+  .contact-line .label {
+    font-size: .74rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 600;
+  }
+  .contact-line a.email {
+    font-family: "Fraunces", Georgia, serif; font-size: 1.35rem; font-weight: 500;
+    text-decoration: none; color: var(--ink);
+    border-bottom: 2px solid var(--accent-warm); padding-bottom: 1px;
+  }
+  .contact-line a.email:hover { color: var(--accent); }
+  .muted { color: var(--ink-faint); font-size: .93rem; }
+
+  dl.faq { margin: 1.5rem 0 0; }
+  dl.faq dt { font-weight: 600; margin-top: 1.4rem; }
+  dl.faq dt:first-child { margin-top: 0; }
+  dl.faq dd { margin: .3rem 0 0; color: var(--ink-soft); }
+
+  ul.clean { margin: .7rem 0; padding-left: 1.1rem; }
+  ul.clean li { margin: .35rem 0; padding-left: .2rem; }
+  ul.clean li::marker { color: var(--accent); }
+
+  .keystone {
+    background: var(--accent-soft); border: 1px solid var(--line);
+    border-radius: 14px; padding: 1.3rem 1.6rem; margin-top: 1.6rem;
+    font-size: 1.05rem; color: var(--ink);
+  }
+  .keystone strong { color: var(--ink); }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 2.2rem 0 3.5rem;
+    color: var(--ink-faint); font-size: .9rem;
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  a:focus-visible, nav.jump a:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px;
+  }
+</style>
+
+<div class="horizon"></div>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">Skyshift · Living Wallpapers</p>
+    <h1>Support &amp; Privacy</h1>
+    <p class="lede">Everything you need to get help with Skyshift — and a plain-language account of the data it handles. (Spoiler: none of it.)</p>
+    <nav class="jump" aria-label="Sections">
+      <a href="#support">Support</a>
+      <a href="#faq">Common questions</a>
+      <a href="#privacy">Privacy policy</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="support">
+      <h2>Support <span class="mark">Get help</span></h2>
+      <hr class="rule">
+      <p>Skyshift is made by one person. Email me directly and I read every message — bug reports, feature ideas, or a scene you wish existed.</p>
+      <div class="card">
+        <div class="contact-line">
+          <span class="label">Contact</span>
+          <a class="email" href="mailto:icod4me@gmail.com">icod4me@gmail.com</a>
+        </div>
+        <p class="muted" style="margin-top:.9rem;">Typical reply within 1–2 business days. Including your device model and iOS version helps me help you faster.</p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Common questions <span class="mark">FAQ</span></h2>
+      <hr class="rule">
+      <dl class="faq">
+        <dt>How do I set a Skyshift scene as my wallpaper?</dt>
+        <dd>Open a scene, tap to preview it full-screen, then use the save/share control to add it to Photos and set it from Settings → Wallpaper. Home-screen widgets are added from the widget gallery on your Home Screen.</dd>
+
+        <dt>Do the wallpapers really change through the day?</dt>
+        <dd>Yes — most scenes are drawn in code and follow your device clock, shifting from dawn to golden hour to a starry night in real time. Nothing is downloaded; it’s all generated on-device.</dd>
+
+        <dt>Will Skyshift drain my battery or use data?</dt>
+        <dd>Skyshift makes no network requests and runs animation only while you’re viewing a scene in the app. A static wallpaper saved to Photos uses no extra power at all.</dd>
+
+        <dt>Does Skyshift need an account or internet connection?</dt>
+        <dd>No account, no sign-in, and it works fully offline.</dd>
+
+        <dt>How do I cancel Skyshift Plus?</dt>
+        <dd>Skyshift Plus is a monthly subscription managed by your app store. On iPhone: Settings → your name → Subscriptions → Skyshift. On Android: Google Play → Payments &amp; subscriptions → Subscriptions. You keep Plus until the end of the period you’ve paid for.</dd>
+
+        <dt>I found a bug or want a new scene.</dt>
+        <dd>Please email <a href="mailto:icod4me@gmail.com">icod4me@gmail.com</a> — feedback genuinely shapes what gets built next.</dd>
+      </dl>
+    </section>
+
+    <section id="privacy">
+      <h2>Privacy policy <span class="mark">Effective Nov 1, 2026</span></h2>
+      <hr class="rule">
+
+      <div class="keystone">
+        <strong>Skyshift does not collect, store, transmit, or share any personal data.</strong> There are no accounts, no analytics, no advertising, no trackers, and Skyshift itself makes no network requests. Everything happens on your device.
+      </div>
+
+      <h3>Information collected</h3>
+      <p>None. Skyshift has no sign-in, no user profiles, and no server. It does not access your contacts, location, photos metadata, identifiers, or usage data.</p>
+
+      <h3>How your content is handled</h3>
+      <p>Wallpapers are generated locally on your device and, if you choose to save one, are written to your own Photos library by iOS. Skyshift never uploads or transmits anything.</p>
+
+      <h3>Purchases</h3>
+      <p>Skyshift Plus is bought and managed through the App Store or Google Play. Apple or Google handles the payment; Skyshift only learns whether your subscription is active, and never sees your payment details or identity.</p>
+
+      <h3>Things you create</h3>
+      <p>Your name for greetings, your birthday, letters to future you, favourites and settings are stored only on your device. Reminders and letter notifications are scheduled locally by your phone — nothing is sent to a server.</p>
+
+      <h3>Third parties</h3>
+      <p>Skyshift contains no third-party analytics, advertising, or tracking SDKs. No data is shared with anyone, because none is collected.</p>
+
+      <h3>Children</h3>
+      <p>Skyshift is suitable for all ages and collects no data from anyone, including children under 13.</p>
+
+      <h3>Changes to this policy</h3>
+      <p>If this policy ever changes, the updated version will be posted on this page with a new effective date.</p>
+
+      <h3>Contact</h3>
+      <p>Questions about privacy? Email <a href="mailto:icod4me@gmail.com">icod4me@gmail.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Skyshift — living wallpapers, drawn in code.</span>
+    <span>© 2026 · Crafted by Tarik</span>
+  </footer>
+</div>
